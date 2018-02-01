@@ -28,8 +28,18 @@ FROM country
 WHERE country = "Afghanistan" OR country = "Bangladesh" OR country =  "China";
 
 -- 3a
+ALTER TABLE actor
+ADD middle_name varchar(255)
+AFTER first_name;
+
 -- 3b
+ALTER TABLE actor
+MODIFY middle_name blob;
 -- 3c
+
+ALTER TABLE actor
+DROP COLUMN middle_name;
+
 -- 4a
 -- 4b
 -- 4c
@@ -51,6 +61,5 @@ WHERE country = "Afghanistan" OR country = "Bangladesh" OR country =  "China";
 -- 8a
 -- 8b
 -- 8c
--- alter table actor
--- drop column actor_name;
+
 
