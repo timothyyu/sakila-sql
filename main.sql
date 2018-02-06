@@ -41,11 +41,34 @@ ALTER TABLE actor
 DROP COLUMN middle_name;
 
 -- 4a
+SELECT COUNT(last_name), last_name
+FROM actor
+GROUP BY last_name;
 -- 4b
+
+SELECT COUNT(last_name), last_name
+FROM actor
+GROUP BY last_name
+-- WHERE clause cannot be used due to aggregate function; HAVING clause used instead
+HAVING COUNT(last_name) > 2; 
+
 -- 4c
+SELECT *
+from actor,actor.actor_id
+Where first_name = "GROUCHO"
+AND last_name = "WILLIAMS";
+UPDATE actor
+SET first_name = "HARPO"
+Where first_name = "GROUCHO"
+AND last_name = "WILLIAMS";
 -- 4d
+UPDATE actor
+set first_name = "GROUCHO"
+Where first_name = "HARPO"
+AND last_name = "WILLIAMS" and actor_id = 172;
 -- 5a
 -- 6a
+
 -- 6b
 -- 6c
 -- 6d
