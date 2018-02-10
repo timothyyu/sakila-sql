@@ -87,17 +87,31 @@ SELECT s.staff_id, s.first_name, s.last_name, SUM(p.amount) as 'Total Amount Spe
 FROM staff s
 INNER JOIN payment p 
 ON s.staff_id = p.staff_id
-Where p.payment_date >'2005-07-31 02:42:18'
+Where p.payment_date >'2005-07-31 02:42:18' -- Time period: August 2005
 AND p.payment_date <'2005-09-1 02:42:18'
 GROUP BY s.staff_id;
 
 -- 6c. List each film and the number of actors who are listed for that film. Use tables film_actor and film. Use inner join.
-
+SELECT f.title, COUNT(fa.actor_id) as 'Actor Count'
+FROM film f
+INNER JOIN film_actor fa
+ON f.film_id = fa.film_id
+GROUP BY f.film_id;
 
 -- 6d. How many copies of the film Hunchback Impossible exist in the inventory system?
+SELECT f.title, COUNT(inv.store_id) as 'Invt. Count'
+FROM film f
+INNER JOIN inventory inv
+ON f.film_id = inv.film_id
+WHERE f.title = 'Hunchback Impossible'
+GROUP BY f.film_id;
 
 -- 6e. Using the tables payment and customer and the JOIN command, list the total paid by each customer. List the customers alphabetically by last name:
-
+SELECT c.last_name, SUM(p.amount) as 'Total Amount Spent by Each Customer'
+FROM customer c
+INNER JOIN payment p 
+ON c.customer_id = p.customer_id
+GROUP BY c.customer_id;
 
 -- 7a. The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
 
