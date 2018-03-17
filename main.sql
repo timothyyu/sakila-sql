@@ -136,17 +136,15 @@ WHERE actor_id IN
 
 
 -- 7c. You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers. Use joins to retrieve this information.
-SELECT cu.first_name, cu.last_name, cu.email
-FROM customer cu, address ad, city ci, country co
-JOIN address
-ON ad.address_id = cu.customer_id
-JOIN city
+SELECT first_name, last_name, email
+FROM customer cu
+LEFT JOIN address ad 
+ON cu.address_id = ad.address_id
+LEFT JOIN city ci
 ON ci.city_id = ad.city_id
-JOIN country
-ON co.country_id=ci.country_id
-WHERE co.country_id = "Canada";
-
--- response error for 7c: Error Code: 1054. Unknown column 'ad.address_id' in 'on clause'
+LEFT JOIN country co
+ON co.country_id = ci.country_id
+WHERE country = "Canada";
 
 -- 7d. Sales have been lagging among young families, and you wish to target all family movies for a promotion. Identify all movies categorized as famiy films. film, film_category, category
 
