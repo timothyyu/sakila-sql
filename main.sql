@@ -55,10 +55,11 @@ GROUP BY last_name
 HAVING COUNT(last_name) > 2; -- WHERE clause cannot be used due to aggregate function; HAVING clause used instead
 
 -- 4c. Oh, no! The actor HARPO WILLIAMS was accidentally entered in the actor table as GROUCHO WILLIAMS, the name of Harpo's second cousin's husband's yoga teacher. Write a query to fix the record.
-SELECT * -- Query to confirm "GROUCHO WILLIAMS"
-from actor,actor.actor_id
-Where first_name = "GROUCHO"
-AND last_name = "WILLIAMS";
+-- Query to confirm "GROUCHO WILLIAMS":
+-- SELECT * 
+-- FROM actor, actor.actor_id
+-- Where first_name = "GROUCHO"
+-- AND last_name = "WILLIAMS";
 
 UPDATE actor
 SET first_name = "HARPO"
@@ -67,7 +68,7 @@ AND last_name = "WILLIAMS";
 
 -- 4d. Perhaps we were too hasty in changing GROUCHO to HARPO. It turns out that GROUCHO was the correct name after all! In a single query, if the first name of the actor is currently HARPO, change it to GROUCHO. Otherwise, change the first name to MUCHO GROUCHO, as that is exactly what the actor will be with the grievous error. BE CAREFUL NOT TO CHANGE THE FIRST NAME OF EVERY ACTOR TO MUCHO GROUCHO, HOWEVER! (Hint: update the record using a unique identifier.)
 UPDATE actor
-set first_name = "GROUCHO"
+SET first_name = "GROUCHO"
 Where first_name = "HARPO"
 AND last_name = "WILLIAMS" and actor_id = 172;
 
@@ -162,8 +163,30 @@ WHERE film_id IN
   ) 
 );
 -- 7e. Display the most frequently rented movies in descending order.
+SELECT f.title, COUNT(r.rental_id) as 'rental frequenecy, descending'
+FROM film f
+JOIN inventory i
+ON (f.film_id = i.film_id)
+JOIN rental r
+ON (r.inventory_id = i.inventory_id)
+GROUP BY f.title
+ORDER BY COUNT(r.rental_id) DESC;
 
 -- 7f. Write a query to display how much business, in dollars, each store brought in.
+
+-- join payment to rental, then inventory to rental
+SELECT s.store_id, SUM(amount) AS total 
+-- concat for select not working for currency output for total column
+-- concat('$',SUM(amount),2) 
+FROM payment p
+JOIN rental r
+ON (p.rental_id = r.rental_id)
+JOIN inventory i
+ON (i.inventory_id = r.inventory_id)
+JOIN store s
+ON (s.store_id = i.store_id)
+-- use group by get result for each store:
+GROUP BY s.store_id;
 
 -- 7g. Write a query to display for each store its store ID, city, and country.
 
