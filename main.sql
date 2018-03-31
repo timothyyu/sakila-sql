@@ -175,7 +175,7 @@ ORDER BY COUNT(r.rental_id) DESC;
 -- 7f. Write a query to display how much business, in dollars, each store brought in.
 
 -- join payment to rental, then inventory to rental
-SELECT s.store_id, SUM(amount) AS total 
+SELECT s.store_id, SUM(p.amount) AS total
 -- concat for select not working for currency output for total column
 -- concat('$',SUM(amount),2) 
 FROM payment p
